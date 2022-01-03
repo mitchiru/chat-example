@@ -3,17 +3,77 @@
 
 <head>
   <title>LAZLOSCHMIDL CHAT</title>
-  <link rel="stylesheet" href="https://lazloschmidl-chat.henne-ordnung.de/chat.css" />
+
+  <style>
+    @font-face { font-family: 'VCR'; src: url('https://lazloschmidl-chat.henne-ordnung.de/font/VCR_OSD_MONO.ttf') format('truetype'); }
+
+
+body {
+	margin: 0;
+	padding-bottom: 3rem;
+	background-color: black;
+	color: white;
+}
+
+* {
+	font-family: "VCR", monospace !important;
+	font-size: 16px;
+	line-height: 1;
+}
+
+#container { 
+	position: relative;
+    max-width: 600px;
+	padding-top:20px;
+    margin: 0 auto;
+}
+
+#form {
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+}
+
+.name {
+	flex-basis:0%;
+}
+
+textarea {
+	background-color: transparent;
+	border: none;
+	flex-basis:100%;
+	color: white;
+	display: inline;
+	padding: 0;
+	caret-shape: underscore;
+}
+
+*:focus {
+    outline: none;
+}
+
+#messages {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#messages>li {
+	padding: 0.5rem 1rem;
+}
+  </style>
 </head>
 
 <body>
-  <ul id="messages"></ul>
-  <form id="form" action="">
-    <div class="name">
-      &lt;GUEST&gt;
-    </div>
-    <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
-  </form>
+  <div id="container">
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <div class="name">
+        &lt;GUEST&gt;
+      </div>
+      <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
+    </form>
+  </div>
   <script src="/socket.io/socket.io.js"></script>
 
   <script>

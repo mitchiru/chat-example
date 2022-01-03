@@ -12,7 +12,7 @@
     <div class="name">
       &lt;GUEST&gt;
     </div>
-    <textarea id="input" autofocus rows="4" maxlength="255" onkeypress="KP()" autocomplete="off"></textarea>
+    <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
   </form>
   <script src="/socket.io/socket.io.js"></script>
 
@@ -31,13 +31,15 @@
       }
     });
 
-    function KP(e) {
-      var x = event.keyCode;
-      if (x == 13) {
-        document.getElementById('form').submit();
+    input.addEventListener("keypress", function (e) {
+      if (e.keyCode === 13) {
+        if ('<GUEST>' + input.value) {
+          socket.emit('chat message', input.value);
+          input.value = '';
+        }
         e.preventDefault();
       }
-    }
+    });
 
     socket.on('chat message', function (msg) {
       var item = document.createElement('li');

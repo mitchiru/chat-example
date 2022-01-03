@@ -34,7 +34,7 @@ body {
 	display: flex;
 }
 
-.name {
+#name {
 	flex-basis:0%;
 }
 
@@ -68,7 +68,7 @@ textarea {
   <div id="container">
     <ul id="messages"></ul>
     <form id="form" action="">
-      <div class="name">
+      <div id="name">
         &lt;GUEST&gt;&nbsp;
       </div>
       <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
@@ -82,9 +82,12 @@ textarea {
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
+    var name = document.getElementById('name');
     var user_o = (window.location.hash ? window.location.hash.substring(1) : 'GUEST-white').split("-");
     var user = user_o[0];
     var color = user_o[1];
+
+    name.innerHTML = '&lt;'+user+'&gt;&nbsp;';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();

@@ -82,13 +82,13 @@ textarea {
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
-    var name = document.getElementById('name');
+    
     var user_o = (window.location.hash ? window.location.hash.substring(1) : 'GUEST-white').split("-");
     var user = user_o[0];
-    var color = user_o[1];
+    var c = user_o[1];
 
-    name.innerHTML = '&lt;'+user+'&gt;&nbsp;';
-    name.style.color = color;
+    document.getElementById('name').innerHTML = '&lt;'+user+'&gt;&nbsp;';
+    document.getElementById('name').style.color = c;
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -101,7 +101,7 @@ textarea {
     input.addEventListener("keypress", function (e) {
       if (e.keyCode === 13) {
         if (input.value) {
-          socket.emit('chat message', {msg:input.value, u:user, color: color});
+          socket.emit('chat message', {msg:input.value, u:user, color: c});
           input.value = '';
         }
         e.preventDefault();

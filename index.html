@@ -82,7 +82,7 @@ textarea {
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
-    var user = window.location.hash ? window.location.hash : 'GUEST';
+    var user = window.location.hash.substring(1) ? window.location.hash.substring(1) : 'GUEST';
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -104,7 +104,7 @@ textarea {
 
     socket.on('chat message', function (obj) {
       var item = document.createElement('li');
-      item.textContent = '<'+obj.u+' >'+obj.msg;
+      item.textContent = '<'+obj.u+'> '+obj.msg;
 
       if (obj.u === 'MODEL') {
         item.cssText = 'color: pink;'

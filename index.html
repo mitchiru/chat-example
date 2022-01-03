@@ -59,7 +59,7 @@ textarea {
 }
 
 #messages>li {
-	padding: 0.5rem 1rem;
+	padding: 0;
 }
   </style>
 </head>
@@ -85,8 +85,8 @@ textarea {
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if ('<GUEST>' + input.value) {
-        socket.emit('chat message', input.value);
+      if (input.value) {
+        socket.emit('chat message', '&lt;GUEST&gt;'+input.value);
         input.value = '';
       }
     });

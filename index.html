@@ -31,10 +31,11 @@
       }
     });
 
-    function KP() {
+    function KP(e) {
       var x = event.keyCode;
       if (x == 13) {
         document.getElementById('form').submit();
+        e.preventDefault();
       }
     }
 

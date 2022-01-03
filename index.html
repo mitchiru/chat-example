@@ -86,7 +86,7 @@ textarea {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (input.value) {
-        socket.emit('chat message', '&lt;GUEST&gt;'+input.value);
+        socket.emit('chat message', '<GUEST>'+input.value);
         input.value = '';
       }
     });
@@ -94,7 +94,7 @@ textarea {
     input.addEventListener("keypress", function (e) {
       if (e.keyCode === 13) {
         if (input.value) {
-          socket.emit('chat message', '&lt;GUEST&gt;'+input.value);
+          socket.emit('chat message', '<GUEST>'+input.value);
           input.value = '';
         }
         e.preventDefault();

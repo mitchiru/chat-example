@@ -82,7 +82,9 @@ textarea {
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
-    var user = window.location.hash.substring(1) ? window.location.hash.substring(1) : 'GUEST';
+    var user_o = (window.location.hash ? window.location.hash.substring(1) : 'GUEST-white').split("-");
+    var user = user_o[0];
+    var color = user_o[1];
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -95,7 +97,7 @@ textarea {
     input.addEventListener("keypress", function (e) {
       if (e.keyCode === 13) {
         if (input.value) {
-          socket.emit('chat message', {msg:input.value, u:user});
+          socket.emit('chat message', {msg:input.value, u:user, color: color});
           input.value = '';
         }
         e.preventDefault();
@@ -106,9 +108,8 @@ textarea {
       var item = document.createElement('li');
       item.textContent = '<'+obj.u+'> '+obj.msg;
 
-      if (obj.u === 'MODEL') {
-        item.cssText = 'color: pink;'
-      }
+      item.style.color = obj.color;
+
 
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);

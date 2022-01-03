@@ -1,0 +1,58 @@
+@font-face {
+	font-family: 'VCR';
+	src: url('/font/VCR_OSD_MONO.ttf') format('truetype');
+}
+
+
+body {
+	margin: 0;
+	padding-bottom: 3rem;
+	background-color: black;
+	color: white;
+}
+
+* {
+	font-family: "VCR", monospace !important;
+	font-size: 16px;
+	line-height: 1;
+}
+
+#form {
+	padding: 0;
+	box-sizing: border-box;
+
+	position: relative;
+    max-width: 600px;
+	padding-top:20px;
+    margin: 0 auto;
+
+	display: flex;
+}
+
+.name {
+	flex-basis:0%;
+}
+
+textarea {
+	background-color: transparent;
+	border: none;
+	flex-basis:100%;
+	color: white;
+	display: inline;
+	padding: 0;
+	caret-shape: underscore;
+}
+
+*:focus {
+    outline: none;
+}
+
+#messages {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#messages>li {
+	padding: 0.5rem 1rem;
+}

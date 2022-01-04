@@ -2,7 +2,14 @@
 <html>
 
 <head>
-  <title>LAZLOSCHMIDL CHAT</title>
+  <title>LAZOSCHMIDL CHAT</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
 
   <style>
     @font-face { font-family: 'VCR'; src: url('https://lazloschmidl-chat.henne-ordnung.de/font/VCR_OSD_MONO.ttf') format('truetype'); }
@@ -60,7 +67,9 @@ textarea {
 
 #messages>li {
 	padding: 0;
+  
 }
+
   </style>
 </head>
 
@@ -74,7 +83,7 @@ textarea {
       <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
     </form>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://lazloschmidl-chat.herokuapp.com/socket.io/socket.io.js"></script>
 
   <script>
     var socket = io();
@@ -94,11 +103,16 @@ textarea {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       if (input.value) {
-        socket.emit('chat message', {msg:input.value, u:user});
+        socket.emit('chat message', {msg:input.value, u:user, color: c});
         input.value = '';
       }
     });
 
+    input.addEventListener("keyup", function (e) {
+      if (input.value.length>=1) {
+        socket.emit('chat writing', {u:user, color: c, l: input.value.length});
+      }
+    });
     input.addEventListener("keypress", function (e) {
       if (e.keyCode === 13) {
         if (input.value) {
@@ -109,12 +123,39 @@ textarea {
       }
     });
 
+
+    socket.on('chat writing', function (obj) {
+      var element = document.getElementById(obj.u+'writing');
+      if (element) {
+        element.parentNode.removeChild(element);
+      }
+
+      if (obj.u !== user) {
+        var item = document.createElement('li');
+        item.textContent = '<'+obj.u+'> '+(obj.l>0?'.':'')+(obj.l>2?'.':'')+(obj.l>4?'.':'')+(obj.l>6?'.':'');
+
+        item.id = obj.u+'writing';
+        item.style.color = obj.color;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    });
+
     socket.on('chat message', function (obj) {
+      var element = document.getElementById(obj.u+'writing');
+      if (element) {
+        element.parentNode.removeChild(element);
+      }
+
       var item = document.createElement('li');
       item.textContent = '<'+obj.u+'> '+obj.msg;
 
       item.style.color = obj.color;
 
+      if (obj.u !== user && obj.u !== 'GUEST') {
+        var audio = new Audio('https://lazloschmidl-chat.henne-ordnung.de/icq-uh-oh.mp3');
+        audio.play();
+      }
 
       messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);

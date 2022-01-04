@@ -11,6 +11,9 @@ io.on('connection', (socket) => {
   socket.on('chat message', msg => {
     io.emit('chat message', msg);
   });
+  socket.on('chat writing', msg => {
+    io.emit('chat writing', msg);
+  });
 });
 
 http.listen(port, () => {

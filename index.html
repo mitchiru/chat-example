@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#ffffff">
 
   <style>
-    @font-face { font-family: 'VCR'; src: url('/assets/fonts/VCR_OSD_MONO.ttf') format('truetype'); }
+    @font-face { font-family: 'VCR'; src: url('/assets/VCR_OSD_MONO.ttf') format('truetype'); }
 
 
 body {
@@ -83,7 +83,7 @@ textarea {
       <textarea id="input" autofocus rows="4" maxlength="255" autocomplete="off"></textarea>
     </form>
   </div>
-  <script src="https://lazloschmidl-chat.herokuapp.com/socket.io/socket.io.js"></script>
+  <script src="/node_modules/socket.io/client-dist/socket.io.min.js"></script>
 
   <script>
     var socket = io();
